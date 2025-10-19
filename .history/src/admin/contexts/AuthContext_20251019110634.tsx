@@ -109,15 +109,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     // Create new user and auto-login
-    const newUser: Staff = {
+    const newUser: User = {
       id: Date.now().toString(),
       email: userData.email,
-      full_name: userData.fullName,
-      phone: userData.phone,
-      role: 'admin' as const,
-      is_active: true,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      name: userData.fullName,
+      role: 'user'
     };
     
     setUser(newUser);

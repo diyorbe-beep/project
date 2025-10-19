@@ -223,59 +223,6 @@ const mockStaff: Staff[] = [
   }
 ];
 
-const mockPatients: Patient[] = [
-  {
-    id: '1',
-    full_name: 'Ahmad Karimov',
-    phone: '+998901234567',
-    email: 'ahmad@example.com',
-    birth_date: '1990-05-15',
-    gender: 'Erkak',
-    address: 'Toshkent shahri, Yunusobod tumani',
-    emergency_contact: 'Malika Karimova',
-    emergency_phone: '+998901234568',
-    insurance_number: 'INS001',
-    allergies: 'Penicillin',
-    chronic_conditions: 'Diabetes',
-    created_at: '2024-01-01T00:00:00Z',
-    updated_at: '2024-01-01T00:00:00Z'
-  },
-  {
-    id: '2',
-    full_name: 'Malika Toshmatova',
-    phone: '+998902345678',
-    email: 'malika@example.com',
-    birth_date: '1985-03-20',
-    gender: 'Ayol',
-    address: 'Toshkent shahri, Chilonzor tumani',
-    emergency_contact: 'Akmal Toshmatov',
-    emergency_phone: '+998902345679',
-    insurance_number: 'INS002',
-    allergies: 'Aspirin',
-    chronic_conditions: 'Hypertension',
-    created_at: '2024-01-02T00:00:00Z',
-    updated_at: '2024-01-02T00:00:00Z'
-  }
-];
-
-const mockAppointments: Appointment[] = [
-  {
-    id: '1',
-    patient_id: '1',
-    doctor_id: '2',
-    appointment_date: '2024-01-20',
-    appointment_time: '10:00',
-    service_type: 'Konsultatsiya',
-    status: 'confirmed',
-    notes: 'Qalblashtirish tekshiruvi',
-    created_by: '1',
-    created_at: '2024-01-15T00:00:00Z',
-    updated_at: '2024-01-15T00:00:00Z',
-    patient: mockPatients[0],
-    doctor: mockStaff[1]
-  }
-];
-
 // Auth API
 export const authAPI = {
   async login(email: string, password: string): Promise<{ user: Staff | null; error: string | null }> {
@@ -307,305 +254,444 @@ export const authAPI = {
 // Patients API
 export const patientsAPI = {
   async getAll(): Promise<Patient[]> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return mockPatients;
+    const { data, error } = await supabase
+      .from('patients')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async getById(id: string): Promise<Patient | null> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return mockPatients.find(p => p.id === id) || null;
+    const { data, error } = await supabase
+      .from('patients')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) return null;
+    return data;
   },
 
   async create(patient: Omit<Patient, 'id' | 'created_at' | 'updated_at'>): Promise<Patient> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const newPatient: Patient = {
-      ...patient,
-      id: Date.now().toString(),
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
-    mockPatients.unshift(newPatient);
-    return newPatient;
+    const { data, error } = await supabase
+      .from('patients')
+      .insert([patient])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
   async update(id: string, updates: Partial<Patient>): Promise<Patient> {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    const index = mockPatients.findIndex(p => p.id === id);
-    if (index === -1) throw new Error('Patient not found');
-    
-    mockPatients[index] = {
-      ...mockPatients[index],
-      ...updates,
-      updated_at: new Date().toISOString()
-    };
-    return mockPatients[index];
+    const { data, error } = await supabase
+      .from('patients')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
   async delete(id: string): Promise<void> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const index = mockPatients.findIndex(p => p.id === id);
-    if (index === -1) throw new Error('Patient not found');
-    mockPatients.splice(index, 1);
+    const { error } = await supabase
+      .from('patients')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
   }
 };
 
 // Appointments API
 export const appointmentsAPI = {
   async getAll(): Promise<Appointment[]> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return mockAppointments;
+    const { data, error } = await supabase
+      .from('appointments')
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .order('appointment_date', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async getByDate(date: string): Promise<Appointment[]> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return mockAppointments.filter(a => a.appointment_date === date);
+    const { data, error } = await supabase
+      .from('appointments')
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .eq('appointment_date', date)
+      .order('appointment_time', { ascending: true });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async create(appointment: Omit<Appointment, 'id' | 'created_at' | 'updated_at'>): Promise<Appointment> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const newAppointment: Appointment = {
-      ...appointment,
-      id: Date.now().toString(),
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
-    mockAppointments.unshift(newAppointment);
-    return newAppointment;
+    const { data, error } = await supabase
+      .from('appointments')
+      .insert([appointment])
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
   async update(id: string, updates: Partial<Appointment>): Promise<Appointment> {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    const index = mockAppointments.findIndex(a => a.id === id);
-    if (index === -1) throw new Error('Appointment not found');
-    
-    mockAppointments[index] = {
-      ...mockAppointments[index],
-      ...updates,
-      updated_at: new Date().toISOString()
-    };
-    return mockAppointments[index];
+    const { data, error } = await supabase
+      .from('appointments')
+      .update(updates)
+      .eq('id', id)
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 };
 
 // Vitals API
 export const vitalsAPI = {
   async getByPatient(patientId: string): Promise<Vital[]> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return [];
+    const { data, error } = await supabase
+      .from('vitals')
+      .select(`
+        *,
+        patient:patients(*),
+        nurse:staff(*)
+      `)
+      .eq('patient_id', patientId)
+      .order('measurement_date', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async create(vital: Omit<Vital, 'id' | 'created_at'>): Promise<Vital> {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    const newVital: Vital = {
-      ...vital,
-      id: Date.now().toString(),
-      created_at: new Date().toISOString()
-    };
-    return newVital;
+    const { data, error } = await supabase
+      .from('vitals')
+      .insert([vital])
+      .select(`
+        *,
+        patient:patients(*),
+        nurse:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 };
 
 // Lab Tests API
 export const labTestsAPI = {
   async getAll(): Promise<LabTest[]> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return [];
+    const { data, error } = await supabase
+      .from('lab_tests')
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .order('ordered_date', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async getByPatient(patientId: string): Promise<LabTest[]> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return [];
+    const { data, error } = await supabase
+      .from('lab_tests')
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .eq('patient_id', patientId)
+      .order('ordered_date', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async create(labTest: Omit<LabTest, 'id' | 'created_at' | 'updated_at'>): Promise<LabTest> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const newLabTest: LabTest = {
-      ...labTest,
-      id: Date.now().toString(),
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
-    return newLabTest;
+    const { data, error } = await supabase
+      .from('lab_tests')
+      .insert([labTest])
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
   async update(id: string, updates: Partial<LabTest>): Promise<LabTest> {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    const updatedLabTest: LabTest = {
-      id,
-      patient_id: '',
-      test_name: '',
-      test_type: '',
-      ordered_date: '',
-      status: 'ordered',
-      created_at: '',
-      updated_at: '',
-      ...updates,
-      updated_at: new Date().toISOString()
-    };
-    return updatedLabTest;
+    const { data, error } = await supabase
+      .from('lab_tests')
+      .update(updates)
+      .eq('id', id)
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 };
 
 // Treatment Plans API
 export const treatmentPlansAPI = {
   async getByPatient(patientId: string): Promise<TreatmentPlan[]> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return [];
+    const { data, error } = await supabase
+      .from('treatment_plans')
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .eq('patient_id', patientId)
+      .order('start_date', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async create(treatmentPlan: Omit<TreatmentPlan, 'id' | 'created_at' | 'updated_at'>): Promise<TreatmentPlan> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const newTreatmentPlan: TreatmentPlan = {
-      ...treatmentPlan,
-      id: Date.now().toString(),
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
-    return newTreatmentPlan;
+    const { data, error } = await supabase
+      .from('treatment_plans')
+      .insert([treatmentPlan])
+      .select(`
+        *,
+        patient:patients(*),
+        doctor:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 };
 
 // Treatment Items API
 export const treatmentItemsAPI = {
   async getByNurse(nurseId: string): Promise<TreatmentItem[]> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return [];
+    const { data, error } = await supabase
+      .from('treatment_items')
+      .select(`
+        *,
+        treatment_plan:treatment_plans(*),
+        assigned_nurse:staff(*)
+      `)
+      .eq('assigned_nurse_id', nurseId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async updateStatus(id: string, status: string): Promise<TreatmentItem> {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    const updatedItem: TreatmentItem = {
-      id,
-      treatment_plan_id: '',
-      item_type: 'medication',
-      item_name: '',
-      status: status as any,
-      created_at: '',
-      updated_at: new Date().toISOString()
-    };
-    return updatedItem;
+    const { data, error } = await supabase
+      .from('treatment_items')
+      .update({ status })
+      .eq('id', id)
+      .select(`
+        *,
+        treatment_plan:treatment_plans(*),
+        assigned_nurse:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 };
 
 // Payments API
 export const paymentsAPI = {
   async getAll(): Promise<Payment[]> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return [];
+    const { data, error } = await supabase
+      .from('payments')
+      .select(`
+        *,
+        patient:patients(*),
+        creator:staff(*)
+      `)
+      .order('payment_date', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async getByPatient(patientId: string): Promise<Payment[]> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return [];
+    const { data, error } = await supabase
+      .from('payments')
+      .select(`
+        *,
+        patient:patients(*),
+        creator:staff(*)
+      `)
+      .eq('patient_id', patientId)
+      .order('payment_date', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async create(payment: Omit<Payment, 'id' | 'created_at'>): Promise<Payment> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const newPayment: Payment = {
-      ...payment,
-      id: Date.now().toString(),
-      created_at: new Date().toISOString()
-    };
-    return newPayment;
+    const { data, error } = await supabase
+      .from('payments')
+      .insert([payment])
+      .select(`
+        *,
+        patient:patients(*),
+        creator:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 };
 
 // Notifications API
 export const notificationsAPI = {
   async getByUser(userId: string): Promise<Notification[]> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return [];
+    const { data, error } = await supabase
+      .from('notifications')
+      .select(`
+        *,
+        recipient:staff(*)
+      `)
+      .eq('recipient_id', userId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   },
 
   async markAsRead(id: string): Promise<void> {
-    await new Promise(resolve => setTimeout(resolve, 300));
+    const { error } = await supabase
+      .from('notifications')
+      .update({ is_read: true, read_at: new Date().toISOString() })
+      .eq('id', id);
+
+    if (error) throw error;
   },
 
   async create(notification: Omit<Notification, 'id' | 'created_at' | 'read_at'>): Promise<Notification> {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    const newNotification: Notification = {
-      ...notification,
-      id: Date.now().toString(),
-      created_at: new Date().toISOString()
-    };
-    return newNotification;
+    const { data, error } = await supabase
+      .from('notifications')
+      .insert([notification])
+      .select(`
+        *,
+        recipient:staff(*)
+      `)
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 };
 
 // Rooms API
 export const roomsAPI = {
   async getAll(): Promise<Room[]> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return [
-      {
-        id: '1',
-        room_number: '101',
-        room_type: 'Oddiy palata',
-        floor: 1,
-        bed_count: 2,
-        is_occupied: false,
-        price_per_day: 150000,
-        created_at: '2024-01-01T00:00:00Z',
-        updated_at: '2024-01-01T00:00:00Z'
-      },
-      {
-        id: '2',
-        room_number: '201',
-        room_type: 'VIP xona',
-        floor: 2,
-        bed_count: 1,
-        is_occupied: true,
-        price_per_day: 300000,
-        created_at: '2024-01-01T00:00:00Z',
-        updated_at: '2024-01-01T00:00:00Z'
-      }
-    ];
+    const { data, error } = await supabase
+      .from('rooms')
+      .select('*')
+      .order('room_number');
+
+    if (error) throw error;
+    return data || [];
   },
 
   async getAvailable(): Promise<Room[]> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return [
-      {
-        id: '1',
-        room_number: '101',
-        room_type: 'Oddiy palata',
-        floor: 1,
-        bed_count: 2,
-        is_occupied: false,
-        price_per_day: 150000,
-        created_at: '2024-01-01T00:00:00Z',
-        updated_at: '2024-01-01T00:00:00Z'
-      }
-    ];
+    const { data, error } = await supabase
+      .from('rooms')
+      .select('*')
+      .eq('is_occupied', false)
+      .order('room_number');
+
+    if (error) throw error;
+    return data || [];
   },
 
   async update(id: string, updates: Partial<Room>): Promise<Room> {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    const updatedRoom: Room = {
-      id,
-      room_number: '',
-      room_type: 'Oddiy palata',
-      bed_count: 1,
-      is_occupied: false,
-      created_at: '',
-      updated_at: '',
-      ...updates,
-      updated_at: new Date().toISOString()
-    };
-    return updatedRoom;
+    const { data, error } = await supabase
+      .from('rooms')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   }
 };
 
 // File Upload API
 export const fileAPI = {
   async uploadFile(file: File, patientId?: string, labTestId?: string): Promise<string> {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    const fileName = `${Date.now()}_${file.name}`;
-    return `uploads/${fileName}`;
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `uploads/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('files')
+      .upload(filePath, file);
+
+    if (uploadError) throw uploadError;
+
+    // Save file record to database
+    const { error: dbError } = await supabase
+      .from('files')
+      .insert([{
+        file_name: fileName,
+        original_name: file.name,
+        file_path: filePath,
+        file_size: file.size,
+        mime_type: file.type,
+        patient_id: patientId,
+        lab_test_id: labTestId
+      }]);
+
+    if (dbError) throw dbError;
+
+    return filePath;
   },
 
   async getFileUrl(filePath: string): Promise<string> {
-    return `https://demo-storage.com/${filePath}`;
+    const { data } = supabase.storage
+      .from('files')
+      .getPublicUrl(filePath);
+
+    return data.publicUrl;
   }
 };
