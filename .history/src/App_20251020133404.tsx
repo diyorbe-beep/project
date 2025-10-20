@@ -55,21 +55,6 @@ function PublicWebsite() {
               <h1 className="text-lg sm:text-2xl font-bold text-sky-900">NAJOT CLINIC</h1>
             </div>
             
-            {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-sky-900 transition-colors">Bosh sahifa</a>
-              <a href="#services" className="text-gray-700 hover:text-sky-900 transition-colors">Xizmatlar</a>
-              <a href="#doctors" className="text-gray-700 hover:text-sky-900 transition-colors">Shifokorlar</a>
-              <a href="/login" className="text-gray-700 hover:text-sky-900 transition-colors">Login</a>
-              <a href="/register" className="text-gray-700 hover:text-sky-900 transition-colors">Register</a>
-              <button
-                onClick={handleAppointmentClick}
-                className="bg-sky-900 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition-colors"
-              >
-                Navbatga yozilish
-              </button>
-            </div>
-            
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
@@ -86,6 +71,21 @@ function PublicWebsite() {
                 </svg>
               </button>
             </div>
+          </div>
+          
+          {/* Desktop menu */}
+          <div className="hidden md:flex space-x-8 mt-4">
+            <a href="#home" className="text-gray-700 hover:text-sky-900 transition-colors">Bosh sahifa</a>
+            <a href="#services" className="text-gray-700 hover:text-sky-900 transition-colors">Xizmatlar</a>
+            <a href="#doctors" className="text-gray-700 hover:text-sky-900 transition-colors">Shifokorlar</a>
+            <a href="/login" className="text-gray-700 hover:text-sky-900 transition-colors">Login</a>
+            <a href="/register" className="text-gray-700 hover:text-sky-900 transition-colors">Register</a>
+            <button
+              onClick={handleAppointmentClick}
+              className="bg-sky-900 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition-colors"
+            >
+              Navbatga yozilish
+            </button>
           </div>
           
           {/* Mobile menu */}
@@ -281,44 +281,44 @@ function PublicWebsite() {
 
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Phone className="w-6 h-6 sm:w-8 sm:h-8 text-sky-700" />
+              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Phone className="w-8 h-8 text-sky-700" />
               </div>
-              <h3 className="font-bold text-lg sm:text-xl text-gray-900 mb-2">Telefon</h3>
-              <p className="text-gray-600 text-sm sm:text-base">+998 90 123 45 67</p>
-              <p className="text-gray-600 text-sm sm:text-base">+998 91 234 56 78</p>
+              <h3 className="font-bold text-xl text-gray-900 mb-2">Telefon</h3>
+              <p className="text-gray-600">+998 90 123 45 67</p>
+              <p className="text-gray-600">+998 91 234 56 78</p>
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-sky-700" />
+              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-8 h-8 text-sky-700" />
               </div>
-              <h3 className="font-bold text-lg sm:text-xl text-gray-900 mb-2">Manzil</h3>
-              <p className="text-gray-600 text-sm sm:text-base">Toshkent shahar,</p>
-              <p className="text-gray-600 text-sm sm:text-base">Yunusobod tumani</p>
+              <h3 className="font-bold text-xl text-gray-900 mb-2">Manzil</h3>
+              <p className="text-gray-600">Toshkent shahar,</p>
+              <p className="text-gray-600">Yunusobod tumani</p>
             </div>
 
-            <div className="text-center sm:col-span-2 md:col-span-1">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Clock className="w-6 h-6 sm:w-8 sm:h-8 text-sky-700" />
+            <div className="text-center">
+              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-sky-700" />
               </div>
-              <h3 className="font-bold text-lg sm:text-xl text-gray-900 mb-2">Ish vaqti</h3>
-              <p className="text-gray-600 text-sm sm:text-base">Dushanba - Shanba</p>
-              <p className="text-gray-600 text-sm sm:text-base">09:00 - 20:00</p>
+              <h3 className="font-bold text-xl text-gray-900 mb-2">Ish vaqti</h3>
+              <p className="text-gray-600">Dushanba - Shanba</p>
+              <p className="text-gray-600">09:00 - 20:00</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-sky-900 text-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-sky-900 text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-2 mb-3 sm:mb-4">
-            <Stethoscope className="w-6 h-6 sm:w-8 sm:h-8" />
-            <h3 className="text-xl sm:text-2xl font-bold">NAJOT CLINIC</h3>
+          <div className="flex items-center justify-center space-x-2 mb-4">
+            <Stethoscope className="w-8 h-8" />
+            <h3 className="text-2xl font-bold">NAJOT CLINIC</h3>
           </div>
-          <p className="text-sky-200 mb-3 sm:mb-4 text-sm sm:text-base">Sizning sog'ligingiz bizning g'amxo'rligimizda</p>
-          <p className="text-sky-300 text-xs sm:text-sm">© 2024 NAJOT CLINIC. Barcha huquqlar himoyalangan.</p>
+          <p className="text-sky-200 mb-4">Sizning sog'ligingiz bizning g'amxo'rligimizda</p>
+          <p className="text-sky-300 text-sm">© 2024 NAJOT CLINIC. Barcha huquqlar himoyalangan.</p>
         </div>
       </footer>
     </div>

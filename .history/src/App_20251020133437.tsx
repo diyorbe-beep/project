@@ -55,21 +55,6 @@ function PublicWebsite() {
               <h1 className="text-lg sm:text-2xl font-bold text-sky-900">NAJOT CLINIC</h1>
             </div>
             
-            {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-sky-900 transition-colors">Bosh sahifa</a>
-              <a href="#services" className="text-gray-700 hover:text-sky-900 transition-colors">Xizmatlar</a>
-              <a href="#doctors" className="text-gray-700 hover:text-sky-900 transition-colors">Shifokorlar</a>
-              <a href="/login" className="text-gray-700 hover:text-sky-900 transition-colors">Login</a>
-              <a href="/register" className="text-gray-700 hover:text-sky-900 transition-colors">Register</a>
-              <button
-                onClick={handleAppointmentClick}
-                className="bg-sky-900 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition-colors"
-              >
-                Navbatga yozilish
-              </button>
-            </div>
-            
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
@@ -86,6 +71,21 @@ function PublicWebsite() {
                 </svg>
               </button>
             </div>
+          </div>
+          
+          {/* Desktop menu */}
+          <div className="hidden md:flex space-x-8 mt-4">
+            <a href="#home" className="text-gray-700 hover:text-sky-900 transition-colors">Bosh sahifa</a>
+            <a href="#services" className="text-gray-700 hover:text-sky-900 transition-colors">Xizmatlar</a>
+            <a href="#doctors" className="text-gray-700 hover:text-sky-900 transition-colors">Shifokorlar</a>
+            <a href="/login" className="text-gray-700 hover:text-sky-900 transition-colors">Login</a>
+            <a href="/register" className="text-gray-700 hover:text-sky-900 transition-colors">Register</a>
+            <button
+              onClick={handleAppointmentClick}
+              className="bg-sky-900 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition-colors"
+            >
+              Navbatga yozilish
+            </button>
           </div>
           
           {/* Mobile menu */}

@@ -46,61 +46,61 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <i className="ri-nurse-line text-xl sm:text-2xl text-blue-600"></i>
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i className="ri-nurse-line text-2xl text-blue-600"></i>
               </div>
-              <div className="ml-3 sm:ml-4">
-                <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats.totalNurses}</p>
-                <p className="text-xs sm:text-sm font-medium text-gray-600">Hamshiralar</p>
+              <div className="ml-4">
+                <p className="text-2xl font-bold text-gray-900">{stats.totalNurses}</p>
+                <p className="text-sm font-medium text-gray-600">Hamshiralar</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <i className="ri-user-line text-xl sm:text-2xl text-blue-600"></i>
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i className="ri-user-line text-2xl text-blue-600"></i>
               </div>
-              <div className="ml-3 sm:ml-4">
-                <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats.totalPatients.toLocaleString()}</p>
-                <p className="text-xs sm:text-sm font-medium text-gray-600">Bemorlar</p>
+              <div className="ml-4">
+                <p className="text-2xl font-bold text-gray-900">{stats.totalPatients.toLocaleString()}</p>
+                <p className="text-sm font-medium text-gray-600">Bemorlar</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <i className="ri-hotel-bed-line text-xl sm:text-2xl text-blue-600"></i>
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i className="ri-hotel-bed-line text-2xl text-blue-600"></i>
               </div>
-              <div className="ml-3 sm:ml-4">
-                <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats.totalRooms}</p>
-                <p className="text-xs sm:text-sm font-medium text-gray-600">Xonalar</p>
+              <div className="ml-4">
+                <p className="text-2xl font-bold text-gray-900">{stats.totalRooms}</p>
+                <p className="text-sm font-medium text-gray-600">Xonalar</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Yangi Bemor qo'shish va Eski Bemorlar */}
           <div className="lg:col-span-1 space-y-6">
-            <button className="w-full bg-blue-600 text-white px-4 sm:px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-sm sm:text-base">
+            <button className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
               Yangi Bemor qo'shish
             </button>
             
             <div className="bg-white rounded-lg shadow-sm">
-              <div className="p-4 sm:p-6 border-b border-gray-200">
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900">Eski Bemorlar</h3>
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Eski Bemorlar</h3>
               </div>
-              <div className="p-4 sm:p-6">
-                <div className="space-y-3 sm:space-y-4">
+              <div className="p-6">
+                <div className="space-y-4">
                   {oldPatients.map((patient) => (
                     <div key={patient.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900 text-sm sm:text-base truncate">{patient.name}</p>
-                        <p className="text-xs sm:text-sm text-gray-500">Yosh: {patient.age}</p>
+                      <div>
+                        <p className="font-medium text-gray-900">{patient.name}</p>
+                        <p className="text-sm text-gray-500">Yosh: {patient.age}</p>
                       </div>
                     </div>
                   ))}
@@ -109,8 +109,8 @@ export default function DashboardPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-sm">
-              <div className="p-4 sm:p-6 border-b border-gray-200">
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900">Talibly Kartasi</h3>
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Talibly Kartasi</h3>
               </div>
               <div className="p-6">
                 <div className="space-y-3">

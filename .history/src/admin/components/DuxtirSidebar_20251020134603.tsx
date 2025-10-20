@@ -1,22 +1,21 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const shifokorMenuItems = [
-  { id: 'dashboard', label: 'Bosh sahifa', icon: 'ri-dashboard-line', path: '/shifokor' },
-  { id: 'bemorlar', label: 'Mening bemorlarim', icon: 'ri-user-line', path: '/shifokor/bemorlar' },
-  { id: 'tashxis', label: 'Tashxis qo\'yish', icon: 'ri-stethoscope-line', path: '/shifokor/tashxis' },
-  { id: 'muolaja', label: 'Muolaja rejalari', icon: 'ri-medicine-bottle-line', path: '/shifokor/muolaja' },
-  { id: 'tahlillar', label: 'Tahlil natijalari', icon: 'ri-test-tube-line', path: '/shifokor/tahlillar' },
-  { id: 'xonalar', label: 'Xonalar', icon: 'ri-hotel-bed-line', path: '/shifokor/xonalar' },
-  { id: 'hamshiralar', label: 'Hamshiralar', icon: 'ri-nurse-line', path: '/shifokor/hamshiralar' },
-  { id: 'profil', label: 'Profil', icon: 'ri-user-settings-line', path: '/shifokor/profil' }
+const duxtirMenuItems = [
+  { id: 'dashboard', label: 'Bosh sahifa', icon: 'ri-dashboard-line', path: '/duxtir' },
+  { id: 'qabul', label: 'Qabul', icon: 'ri-user-add-line', path: '/duxtir/qabul' },
+  { id: 'bemorlar', label: 'Bemorlar ro\'yxati', icon: 'ri-user-line', path: '/duxtir/bemorlar' },
+  { id: 'naybat', label: 'Naybatlar', icon: 'ri-calendar-check-line', path: '/duxtir/naybat' },
+  { id: 'tolovlar', label: 'To\'lovlar', icon: 'ri-money-dollar-circle-line', path: '/duxtir/tolovlar' },
+  { id: 'xonalar', label: 'Xonalar', icon: 'ri-hotel-bed-line', path: '/duxtir/xonalar' },
+  { id: 'hisobotlar', label: 'Hisobotlar', icon: 'ri-bar-chart-line', path: '/duxtir/hisobotlar' },
+  { id: 'profil', label: 'Profil', icon: 'ri-user-settings-line', path: '/duxtir/profil' }
 ];
 
-export const ShifokorSidebar = () => {
+export const DuxtirSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleMenuClick = (path: string) => {
     navigate(path);
@@ -52,7 +51,7 @@ export const ShifokorSidebar = () => {
         <div className="p-4 sm:p-6">
           <div className="flex items-center justify-between">
             {!collapsed && (
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900">SHIFOKOR PANELI</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900">DUXTIR PANELI</h1>
             )}
             <button
               onClick={() => setCollapsed(!collapsed)}
@@ -62,12 +61,12 @@ export const ShifokorSidebar = () => {
             </button>
           </div>
           {!collapsed && (
-            <p className="text-gray-500 text-xs sm:text-sm mt-1">Dr. Kamila Rahimova</p>
+            <p className="text-gray-500 text-xs sm:text-sm mt-1">Malika Toshmatova</p>
           )}
         </div>
 
         <nav className="mt-4">
-          {shifokorMenuItems.map((item) => (
+          {duxtirMenuItems.map((item) => (
             <button
               key={item.id}
               onClick={() => {

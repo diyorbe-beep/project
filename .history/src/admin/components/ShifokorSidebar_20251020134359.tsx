@@ -16,7 +16,6 @@ export const ShifokorSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleMenuClick = (path: string) => {
     navigate(path);

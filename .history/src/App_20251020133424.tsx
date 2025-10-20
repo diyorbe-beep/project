@@ -55,21 +55,6 @@ function PublicWebsite() {
               <h1 className="text-lg sm:text-2xl font-bold text-sky-900">NAJOT CLINIC</h1>
             </div>
             
-            {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-sky-900 transition-colors">Bosh sahifa</a>
-              <a href="#services" className="text-gray-700 hover:text-sky-900 transition-colors">Xizmatlar</a>
-              <a href="#doctors" className="text-gray-700 hover:text-sky-900 transition-colors">Shifokorlar</a>
-              <a href="/login" className="text-gray-700 hover:text-sky-900 transition-colors">Login</a>
-              <a href="/register" className="text-gray-700 hover:text-sky-900 transition-colors">Register</a>
-              <button
-                onClick={handleAppointmentClick}
-                className="bg-sky-900 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition-colors"
-              >
-                Navbatga yozilish
-              </button>
-            </div>
-            
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
@@ -86,6 +71,21 @@ function PublicWebsite() {
                 </svg>
               </button>
             </div>
+          </div>
+          
+          {/* Desktop menu */}
+          <div className="hidden md:flex space-x-8 mt-4">
+            <a href="#home" className="text-gray-700 hover:text-sky-900 transition-colors">Bosh sahifa</a>
+            <a href="#services" className="text-gray-700 hover:text-sky-900 transition-colors">Xizmatlar</a>
+            <a href="#doctors" className="text-gray-700 hover:text-sky-900 transition-colors">Shifokorlar</a>
+            <a href="/login" className="text-gray-700 hover:text-sky-900 transition-colors">Login</a>
+            <a href="/register" className="text-gray-700 hover:text-sky-900 transition-colors">Register</a>
+            <button
+              onClick={handleAppointmentClick}
+              className="bg-sky-900 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition-colors"
+            >
+              Navbatga yozilish
+            </button>
           </div>
           
           {/* Mobile menu */}
@@ -311,14 +311,14 @@ function PublicWebsite() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-sky-900 text-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-sky-900 text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-2 mb-3 sm:mb-4">
-            <Stethoscope className="w-6 h-6 sm:w-8 sm:h-8" />
-            <h3 className="text-xl sm:text-2xl font-bold">NAJOT CLINIC</h3>
+          <div className="flex items-center justify-center space-x-2 mb-4">
+            <Stethoscope className="w-8 h-8" />
+            <h3 className="text-2xl font-bold">NAJOT CLINIC</h3>
           </div>
-          <p className="text-sky-200 mb-3 sm:mb-4 text-sm sm:text-base">Sizning sog'ligingiz bizning g'amxo'rligimizda</p>
-          <p className="text-sky-300 text-xs sm:text-sm">© 2024 NAJOT CLINIC. Barcha huquqlar himoyalangan.</p>
+          <p className="text-sky-200 mb-4">Sizning sog'ligingiz bizning g'amxo'rligimizda</p>
+          <p className="text-sky-300 text-sm">© 2024 NAJOT CLINIC. Barcha huquqlar himoyalangan.</p>
         </div>
       </footer>
     </div>

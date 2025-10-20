@@ -114,7 +114,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 sm:py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="flex items-center">
@@ -128,32 +128,32 @@ export default function Login() {
           </div>
 
           <div className="text-center">
-            <div className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+            <div className="text-sm text-gray-600 mb-4">
               <p className="font-medium">Demo ma'lumotlar:</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                <div className="text-center sm:text-left">
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div>
                   <p><strong>Admin:</strong></p>
                   <p>admin@najotclinic.uz</p>
                   <p>admin123</p>
                 </div>
-                <div className="text-center sm:text-left">
+                <div>
                   <p><strong>Shifokor:</strong></p>
                   <p>shifokor@najotclinic.uz</p>
                   <p>shifokor123</p>
                 </div>
-                <div className="text-center sm:text-left">
+                <div>
                   <p><strong>Hamshira:</strong></p>
                   <p>hamshira@najotclinic.uz</p>
                   <p>hamshira123</p>
                 </div>
-                <div className="text-center sm:text-left">
+                <div>
                   <p><strong>Duxtir:</strong></p>
                   <p>duxtir@najotclinic.uz</p>
                   <p>duxtir123</p>
                 </div>
               </div>
             </div>
-            <p className="text-xs sm:text-sm text-gray-600">
+            <p className="text-sm text-gray-600">
               Hali ro'yxatdan o'tmadingizmi?{' '}
               <a href="/register" className="font-medium text-blue-600 hover:text-blue-500">
                 Ro'yxatdan o'ting

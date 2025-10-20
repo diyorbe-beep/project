@@ -94,13 +94,13 @@ export default function DashboardPage() {
               <div className="p-4 sm:p-6 border-b border-gray-200">
                 <h3 className="text-base sm:text-lg font-semibold text-gray-900">Eski Bemorlar</h3>
               </div>
-              <div className="p-4 sm:p-6">
-                <div className="space-y-3 sm:space-y-4">
+              <div className="p-6">
+                <div className="space-y-4">
                   {oldPatients.map((patient) => (
                     <div key={patient.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900 text-sm sm:text-base truncate">{patient.name}</p>
-                        <p className="text-xs sm:text-sm text-gray-500">Yosh: {patient.age}</p>
+                      <div>
+                        <p className="font-medium text-gray-900">{patient.name}</p>
+                        <p className="text-sm text-gray-500">Yosh: {patient.age}</p>
                       </div>
                     </div>
                   ))}
@@ -109,8 +109,8 @@ export default function DashboardPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-sm">
-              <div className="p-4 sm:p-6 border-b border-gray-200">
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900">Talibly Kartasi</h3>
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Talibly Kartasi</h3>
               </div>
               <div className="p-6">
                 <div className="space-y-3">

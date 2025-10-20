@@ -109,8 +109,8 @@ export default function DashboardPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-sm">
-              <div className="p-4 sm:p-6 border-b border-gray-200">
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900">Talibly Kartasi</h3>
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Talibly Kartasi</h3>
               </div>
               <div className="p-6">
                 <div className="space-y-3">

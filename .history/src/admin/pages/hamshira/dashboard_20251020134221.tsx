@@ -113,19 +113,19 @@ export default function HamshiraDashboard() {
 
         <div>
           <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">So'nggi bildirishnomalar</h2>
-          <div className="space-y-2 sm:space-y-3">
+          <div className="space-y-3">
             {notificationsData.slice(0, 5).map((notification) => (
-              <div key={notification.id} className={`p-3 sm:p-4 rounded-lg border ${notification.oqildi ? 'bg-gray-50 border-gray-200' : 'bg-blue-50 border-blue-200'}`}>
+              <div key={notification.id} className={`p-4 rounded-lg border ${notification.oqildi ? 'bg-gray-50 border-gray-200' : 'bg-blue-50 border-blue-200'}`}>
                 <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-2 sm:gap-3">
+                  <div className="flex items-start gap-3">
                     <div className={`w-2 h-2 rounded-full mt-2 ${notification.priority === 'yuqori' ? 'bg-red-500' : 'bg-yellow-500'}`}></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs sm:text-sm font-medium text-gray-900">{notification.message}</p>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">{notification.message}</p>
                       <p className="text-xs text-gray-500">{new Date(notification.sana).toLocaleString('uz-UZ')}</p>
                     </div>
                   </div>
                   {!notification.oqildi && (
-                    <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full ml-2">Yangi</span>
+                    <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Yangi</span>
                   )}
                 </div>
               </div>
