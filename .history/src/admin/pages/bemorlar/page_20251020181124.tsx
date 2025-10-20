@@ -25,10 +25,6 @@ export default function BemolarPage() {
     yosh: 0
   });
 
-  useEffect(() => {
-    localStorage.setItem('patients', JSON.stringify(patients));
-  }, [patients]);
-
   const filteredPatients = patients.filter(patient =>
     patient.ism.toLowerCase().includes(searchTerm.toLowerCase()) ||
     patient.familiya.toLowerCase().includes(searchTerm.toLowerCase())

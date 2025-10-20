@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '../../components/base/Button';
 import { Input } from '../../components/base/Input';
 import { Modal } from '../../components/base/Modal';
 import { patientsData } from '../../mocks/patients';
 
 export default function BemolarPage() {
-  const [patients, setPatients] = useState(() => {
-    const saved = localStorage.getItem('patients');
-    return saved ? JSON.parse(saved) : patientsData;
-  });
+  const [patients, setPatients] = useState(patientsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,10 +21,6 @@ export default function BemolarPage() {
     allergiyalar: '',
     yosh: 0
   });
-
-  useEffect(() => {
-    localStorage.setItem('patients', JSON.stringify(patients));
-  }, [patients]);
 
   const filteredPatients = patients.filter(patient =>
     patient.ism.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -322,7 +315,7 @@ export default function BemolarPage() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={isEditMode ? "Bemorni tahrirlash" : "Bemor ma'lumotlari"}
+        title="Bemor ma'lumotlari"
         size="lg"
       >
         {selectedPatient && (

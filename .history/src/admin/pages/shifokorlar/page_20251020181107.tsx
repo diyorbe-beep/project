@@ -25,10 +25,6 @@ export default function ShifokorlarPage() {
     holat: 'faol'
   });
 
-  useEffect(() => {
-    localStorage.setItem('doctors', JSON.stringify(doctors));
-  }, [doctors]);
-
   const filteredDoctors = doctors.filter(doctor =>
     doctor.ism.toLowerCase().includes(searchTerm.toLowerCase()) ||
     doctor.mutaxassislik.toLowerCase().includes(searchTerm.toLowerCase())

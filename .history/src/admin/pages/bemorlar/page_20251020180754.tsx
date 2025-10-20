@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '../../components/base/Button';
 import { Input } from '../../components/base/Input';
 import { Modal } from '../../components/base/Modal';
 import { patientsData } from '../../mocks/patients';
 
 export default function BemolarPage() {
-  const [patients, setPatients] = useState(() => {
-    const saved = localStorage.getItem('patients');
-    return saved ? JSON.parse(saved) : patientsData;
-  });
+  const [patients, setPatients] = useState(patientsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,10 +21,6 @@ export default function BemolarPage() {
     allergiyalar: '',
     yosh: 0
   });
-
-  useEffect(() => {
-    localStorage.setItem('patients', JSON.stringify(patients));
-  }, [patients]);
 
   const filteredPatients = patients.filter(patient =>
     patient.ism.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -245,84 +238,12 @@ export default function BemolarPage() {
             </div>
           </div>
         </div>
-
-        {/* Bemorlar ro'yxati */}
-        <div className="mt-4 sm:mt-6 bg-white rounded-lg shadow-sm">
-          <div className="p-4 sm:p-6 border-b border-gray-200">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900">Bemorlar ro'yxati</h3>
-              <div className="flex gap-2 w-full sm:w-auto">
-                <Input
-                  type="text"
-                  placeholder="Qidirish..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="flex-1 sm:w-64"
-                />
-                <Button onClick={handleAddPatient}>
-                  <i className="ri-add-line mr-2"></i>
-                  Yangi bemor
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className="p-4 sm:p-6">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-gray-50">
-                    <th className="px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-gray-600">Ism</th>
-                    <th className="px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-gray-600">Familiya</th>
-                    <th className="px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-gray-600">Telefon</th>
-                    <th className="px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-gray-600">Yosh</th>
-                    <th className="px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-gray-600">Amallar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredPatients.map((patient) => (
-                    <tr key={patient.id} className="border-b border-gray-200 hover:bg-gray-50">
-                      <td className="px-3 sm:px-4 py-3 text-xs sm:text-sm text-gray-900">{patient.ism}</td>
-                      <td className="px-3 sm:px-4 py-3 text-xs sm:text-sm text-gray-900">{patient.familiya}</td>
-                      <td className="px-3 sm:px-4 py-3 text-xs sm:text-sm text-gray-900">{patient.telefon}</td>
-                      <td className="px-3 sm:px-4 py-3 text-xs sm:text-sm text-gray-900">{patient.yosh}</td>
-                      <td className="px-3 sm:px-4 py-3 text-xs sm:text-sm">
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => handleViewPatient(patient)}
-                            className="text-blue-600 hover:text-blue-800"
-                            title="Ko'rish"
-                          >
-                            <i className="ri-eye-line"></i>
-                          </button>
-                          <button
-                            onClick={() => handleEditPatient(patient)}
-                            className="text-green-600 hover:text-green-800"
-                            title="Tahrirlash"
-                          >
-                            <i className="ri-edit-line"></i>
-                          </button>
-                          <button
-                            onClick={() => handleDeletePatient(patient.id)}
-                            className="text-red-600 hover:text-red-800"
-                            title="O'chirish"
-                          >
-                            <i className="ri-delete-bin-line"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
       </div>
 
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={isEditMode ? "Bemorni tahrirlash" : "Bemor ma'lumotlari"}
+        title="Bemor ma'lumotlari"
         size="lg"
       >
         {selectedPatient && (

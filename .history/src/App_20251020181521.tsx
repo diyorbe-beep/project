@@ -84,25 +84,14 @@ function PublicWebsite() {
               <a href="#home" className="text-gray-700 hover:text-sky-900 transition-colors">Bosh sahifa</a>
               <a href="#services" className="text-gray-700 hover:text-sky-900 transition-colors">Xizmatlar</a>
               <a href="#doctors" className="text-gray-700 hover:text-sky-900 transition-colors">Shifokorlar</a>
-              {user ? (
-                <button
-                  onClick={() => navigate('/profile')}
-                  className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  Mening Profilim
-                </button>
-              ) : (
-                <>
-                  <a href="/login" className="text-gray-700 hover:text-sky-900 transition-colors">Login</a>
-                  <a href="/register" className="text-gray-700 hover:text-sky-900 transition-colors">Register</a>
-                  <button
-                    onClick={handleAppointmentClick}
-                    className="bg-sky-900 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition-colors"
-                  >
-                    Navbatga yozilish
-                  </button>
-                </>
-              )}
+              <a href="/login" className="text-gray-700 hover:text-sky-900 transition-colors">Login</a>
+              <a href="/register" className="text-gray-700 hover:text-sky-900 transition-colors">Register</a>
+              <button
+                onClick={handleAppointmentClick}
+                className="bg-sky-900 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition-colors"
+              >
+                Navbatga yozilish
+              </button>
             </div>
             
             {/* Mobile menu button */}
